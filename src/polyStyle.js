@@ -14,7 +14,7 @@ var isObject = require('./isObject');
 
   }
 */
-var polyStyle = (styleObj) => {
+var polyStyle = function polyStyle(styleObj) {
 
   if(!isObject(styleObj)){
     throw new Error('Style value given is not an Object!');
