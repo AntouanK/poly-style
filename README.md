@@ -27,3 +27,14 @@ var styleObj = polyStyle({
 }
 */
 ```
+
+## Attributes supported
+  - display: 'flex'
+  - flex
+  - order
+  - flex-direction
+  - align-items
+  - justify-content
+  - flex-wrap
+  - transform
+  - user-select
