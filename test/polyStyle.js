@@ -73,6 +73,18 @@ var specs = [
   },
 
   {
+    testName: `flex-direction: column`,
+    in: {
+      flexDirection: 'column'
+    },
+    out: {
+      flexDirection: 'column',
+      MsFlexDirection: 'column',
+      WebkitFlexDirection: 'column'
+    }
+  },
+
+  {
     testName: `align-items: flex-start`,
     in: {
       alignItems: 'flex-start'
