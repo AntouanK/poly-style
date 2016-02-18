@@ -27,12 +27,7 @@ var polyStyle = (styleObj) => {
   //                    display: -webkit-flex
   //                    display: flex
   if(styleObj.display === 'flex'){
-    styleObj.display = `
-    -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex`;
+    styleObj.display = `-webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display: flex`;
   }
 
   //  flex
@@ -86,8 +81,8 @@ var polyStyle = (styleObj) => {
 
   //  flex-wrap
   if(typeof styleObj.flexWrap === 'string'){
-    styleObj.MsFlexWrap = styleObj.justifyContent;
-    styleObj.WebkitFlexWrap = styleObj.justifyContent;
+    styleObj.MsFlexWrap = styleObj.flexWrap;
+    styleObj.WebkitFlexWrap = styleObj.flexWrap;
   }
 
   //  transform
@@ -101,6 +96,7 @@ var polyStyle = (styleObj) => {
   if(typeof styleObj.userSelect === 'string'){
     styleObj.WebkitUserSelect = styleObj.userSelect;
     styleObj.MozUserSelect = styleObj.userSelect;
+    styleObj.MsUserSelect = styleObj.userSelect;
   }
 
   return styleObj;

@@ -4,7 +4,7 @@
   "description": "A JS function that takes a react-style object, and adds the values needed to make it compatible with older browsers ( so polyfilling css values )",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./node_modules/tape/bin/tape test/polyStyle.js | node ./node_modules/tap-spec/bin/cmd.js"
   },
   "repository": {
     "type": "git",
