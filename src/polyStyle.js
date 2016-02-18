@@ -27,7 +27,7 @@ var polyStyle = function polyStyle(styleObj) {
   //                    display: -webkit-flex
   //                    display: flex
   if(styleObj.display === 'flex'){
-    styleObj.display = `-webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display: flex`;
+    styleObj.display = '-webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display: flex';
   }
 
   //  flex

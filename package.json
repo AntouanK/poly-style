@@ -1,6 +1,6 @@
 {
   "name": "poly-style",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A JS function that takes a react-style object, and adds the values needed to make it compatible with older browsers ( so polyfilling css values )",
   "main": "src/index.js",
   "scripts": {
