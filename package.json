@@ -1,0 +1,23 @@
+{
+  "name": "poly-style",
+  "version": "1.0.0",
+  "description": "A JS function that takes a react-style object, and adds the values needed to make it compatible with older browsers ( so polyfilling css values )",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AntouanK/poly-style.git"
+  },
+  "keywords": [
+    "polyfill",
+    "react-style"
+  ],
+  "author": "Antonis Karamitros <antouankar@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AntouanK/poly-style/issues"
+  },
+  "homepage": "https://github.com/AntouanK/poly-style#readme"
+}
