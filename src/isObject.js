@@ -1,4 +1,6 @@
 
 'use strict';
 
-module.exports = val => (val !== null && typeof val === 'object');
+module.exports = function isObject(val) {
+  return (val !== null && typeof val === 'object');
+};
