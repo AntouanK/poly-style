@@ -3,6 +3,8 @@
 
 poly-filling CSS attributes, for react style objects.
 
+*Updated for React v15.* Poly-filling is now happening after attribute checking in the browser runtime. Only needed attributes are added.
+
 # example
 
 ``` js
@@ -20,10 +22,11 @@ var styleObj = polyStyle({
 
 /*
 > styleObj
-{ display: '-webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display: flex',
+{
+  //  if in IE for example
+  display: '-ms-flexbox',
   flexDirection: 'column',
-  MsFlexDirection: 'column',
-  WebkitFlexDirection: 'column'
+  msFlexDirection: 'column'
 }
 */
 ```

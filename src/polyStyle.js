@@ -2,6 +2,198 @@
 'use strict';
 
 var isObject = require('./isObject');
+var testEle = document.createElement('div');
+
+var MODE = 'LATEST';
+
+if(!testEle.style){
+  throw new Error('no style object in the test element');
+}
+
+//  IE
+if(typeof testEle.style['-ms-flex-direction'] === 'string'){
+  MODE = 'OLD-IE';
+}
+//  Safari ( iOS )
+else if(
+  typeof testEle.style.webkitAlignItems === 'string' &&
+  typeof testEle.style.flex !== 'string'
+){
+  MODE = 'OLD-SAFARI'
+}
+
+var displayFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) {
+      if(styleObj.display === 'flex'){ styleObj.display = '-ms-flexbox'; }
+    }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) {
+      if(styleObj.display === 'flex'){ styleObj.display = '-webkit-flex'; }
+    }
+  }
+  //  anything else, 'flex' works
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+var flexFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) { styleObj.msFlex = styleObj.flex; }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) { styleObj.WebkitFlex = styleObj.flex; }
+  }
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+var flexOrderFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) { styleObj.msFlexOrder = styleObj.order; }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) { styleObj.WebkitOrder = styleObj.order; }
+  }
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+var flexDirectionFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) {
+      styleObj.msFlexDirection = styleObj.flexDirection;
+    }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) {
+      styleObj.WebkitFlexDirection = styleObj.flexDirection;
+    }
+  }
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+var flexAlignItemsFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) {
+      if(styleObj.alignItems === 'flex-start'){
+        styleObj.msFlexAlign = 'start';
+      }
+      else if(styleObj.alignItems === 'flex-end'){
+        styleObj.msFlexAlign = 'end';
+      }
+      else {
+        styleObj.msFlexAlign = styleObj.alignItems;
+      }
+    }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) {
+      styleObj.WebkitAlignItems = styleObj.alignItems;
+    }
+  }
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+var justifyContentFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) {
+      if(styleObj.justifyContent === 'space-between'){
+        styleObj['-ms-flex-pack'] = 'justify';
+      }
+      else if(styleObj.justifyContent === 'space-around'){
+        styleObj['-ms-flex-pack'] = 'distribute';
+      }
+      else if(styleObj.justifyContent === 'flex-start'){
+        styleObj['-ms-flex-pack'] = 'start';
+      }
+      else if(styleObj.justifyContent === 'flex-end'){
+        styleObj['-ms-flex-pack'] = 'end';
+      }
+      else if(styleObj.justifyContent === 'center'){
+        styleObj['-ms-flex-pack'] = 'center';
+      }
+    }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) {
+      styleObj.WebkitJustifyContent = styleObj.justifyContent;
+    }
+  }
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+var flexWrapFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) { styleObj.msFlexWrap = styleObj.flexWrap; }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) { styleObj.WebkitFlexWrap = styleObj.flexWrap; }
+  }
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+var transformFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) { styleObj.msTransform = styleObj.transform; }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) { styleObj.WebkitTransform = styleObj.transform; }
+  }
+  else if(typeof testEle.style['-moz-transform'] === 'string'){
+    return function(styleObj) { styleObj.MozTransform = styleObj.transform; }
+  }
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+var userSelectFn = (function() {
+  //  IE
+  if(MODE === 'OLD-IE'){
+    return function(styleObj) { styleObj.msUserSelect = styleObj.userSelect; }
+  }
+  //  Safari ( iOS )
+  else if(MODE === 'OLD-SAFARI'){
+    return function(styleObj) { styleObj.WebkitUserSelect = styleObj.userSelect; }
+  }
+  else if(typeof testEle.style['-moz-transform'] === 'string'){
+    return function(styleObj) { styleObj.MozUserSelect = styleObj.userSelect; }
+  }
+  else if(MODE === 'LATEST'){
+    return function() {};
+  }
+})();
+
+
 
 //  pass a react-style object, and get back that same object,
 //  with extra fields if needed, to polyfill CSS attributes
@@ -27,76 +219,47 @@ var polyStyle = function polyStyle(styleObj) {
   //                    display: -webkit-flex
   //                    display: flex
   if(styleObj.display === 'flex'){
-    styleObj.display = '-webkit-box;display: -moz-box;display: -ms-flexbox;display: -webkit-flex;display: flex';
+    displayFn(styleObj);
   }
 
   //  flex
   if(typeof styleObj.flex === 'string'){
-    styleObj.MsFlex = styleObj.flex;
-    styleObj.WebkitFlex = styleObj.flex;
+    flexFn(styleObj);
   }
 
   //  order
   if(typeof styleObj.order === 'string'){
-    styleObj.MsFlexOrder = styleObj.order;
-    styleObj.WebkitOrder = styleObj.order;
+    flexOrderFn(styleObj);
   }
 
   //  flex-direction
   if(typeof styleObj.flexDirection === 'string'){
-    styleObj.MsFlexDirection = styleObj.flexDirection;
-    styleObj.WebkitFlexDirection = styleObj.flexDirection;
+    flexDirectionFn(styleObj);
   }
 
   //  align-items
   if(typeof styleObj.alignItems === 'string'){
-    if(styleObj.alignItems === 'flex-start'){
-      styleObj.MsFlexAlign = 'start';
-    }
-    else if(styleObj.alignItems === 'flex-end'){
-      styleObj.MsFlexAlign = 'end';
-    }
-    else {
-      styleObj.MsFlexAlign = styleObj.alignItems;
-    }
-    styleObj.WebkitAlignItems = styleObj.alignItems;
+    flexAlignItemsFn(styleObj);
   }
 
   //  justify-content
   if(typeof styleObj.justifyContent === 'string'){
-    if(styleObj.justifyContent === 'space-between'){
-      styleObj.MsFlexPack = 'justify';
-    }
-    else if(styleObj.justifyContent === 'space-around'){
-      styleObj.MsFlexPack = 'distribute';
-    }
-    else if(styleObj.justifyContent === 'flex-start'){
-      styleObj.MsFlexPack = 'start';
-    }
-    else if(styleObj.justifyContent === 'flex-end'){
-      styleObj.MsFlexPack = 'end';
-    }
-    styleObj.WebkitJustifyContent = styleObj.justifyContent;
+    justifyContentFn(styleObj);
   }
 
   //  flex-wrap
   if(typeof styleObj.flexWrap === 'string'){
-    styleObj.MsFlexWrap = styleObj.flexWrap;
-    styleObj.WebkitFlexWrap = styleObj.flexWrap;
+    flexWrapFn(styleObj);
   }
 
   //  transform
   if(typeof styleObj.transform === 'string'){
-    styleObj.MsTransform = styleObj.transform;
-    styleObj.MozTransform = styleObj.transform;
-    styleObj.WebkitTransform = styleObj.transform;
+    transformFn(styleObj);
   }
 
   //  userSelect
   if(typeof styleObj.userSelect === 'string'){
-    styleObj.WebkitUserSelect = styleObj.userSelect;
-    styleObj.MozUserSelect = styleObj.userSelect;
-    styleObj.MsUserSelect = styleObj.userSelect;
+    userSelectFn(styleObj);
   }
 
   return styleObj;

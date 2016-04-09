@@ -1,11 +1,8 @@
 {
   "name": "poly-style",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "A JS function that takes a react-style object, and adds the values needed to make it compatible with older browsers ( so polyfilling css values )",
   "main": "src/index.js",
-  "scripts": {
-    "test": "node ./node_modules/tape/bin/tape test/polyStyle.js | node ./node_modules/tap-spec/bin/cmd.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AntouanK/poly-style.git"
