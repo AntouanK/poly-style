@@ -118,19 +118,19 @@ var justifyContentFn = (function() {
   if(MODE === 'OLD-IE'){
     return function(styleObj) {
       if(styleObj.justifyContent === 'space-between'){
-        styleObj['-ms-flex-pack'] = 'justify';
+        styleObj.msFlexPack = 'justify';
       }
       else if(styleObj.justifyContent === 'space-around'){
-        styleObj['-ms-flex-pack'] = 'distribute';
+        styleObj.msFlexPack = 'distribute';
       }
       else if(styleObj.justifyContent === 'flex-start'){
-        styleObj['-ms-flex-pack'] = 'start';
+        styleObj.msFlexPack = 'start';
       }
       else if(styleObj.justifyContent === 'flex-end'){
-        styleObj['-ms-flex-pack'] = 'end';
+        styleObj.msFlexPack = 'end';
       }
       else if(styleObj.justifyContent === 'center'){
-        styleObj['-ms-flex-pack'] = 'center';
+        styleObj.msFlexPack = 'center';
       }
     }
   }
